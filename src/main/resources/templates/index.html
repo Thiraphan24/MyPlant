@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Title</title>
+    <style>
+        h2 {
+            text-align: center;
+        }
+
+        p {
+            margin-left: 100px;
+        }
+    </style>
+</head>
+<body>
+<!-- A grey horizontal navbar that becomes vertical on small screens -->
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="javascript:void(0)"><img src="Untitledrm.png" width="65" height="65"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">หน้าหลัก</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/newplant">ลงทะเบียนพันธุ์ไม้</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.dnp.go.th/botany/PDF/publications/saranukrom.pdf">ดาวห์โหลดหนังสือ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/aboutme">เกี่ยวกับเรา</a>
+                </li>
+            </ul>
+            <form action="/" method="get" class="d-flex">
+                <input class="form-control me-2" type="text" name="keyword" placeholder="Search">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<!--coding here-->
+<h2 class="">สารานุกรมพืช</h2>
+<p>     สารานุกรมพืชในประเทศไทยนี้ เป็นการนำข้อมูลพืชที่พิมพ์เผยแพร่ในหนังสือ “สารานุกรมพืชในประเทศไทย (ฉบับย่อ) เฉลิมพระเกียรติสมเด็จพระเทพรัตนราชสุดฯ สยามบรมราชกุมารี <br>
+    ทรงเจริญพระชนมายุ 60 พรรษา” เพื่อทดแทนสารานุกรมพืชเดิม และเริ่มทยอยลงเผยแพร่ตั้งแต่เดือนกุมภาพันธ์ 2559 เป็นต้นไป และเขียนข้อมูลพืชเพิ่มเติม อาจมีการแก้ไขปรับปรุงข้อมูลในพืชบางชนิด <br>
+    รวมถึงภาพประกอบที่อาจไม่เเหมือนในหนังสือทั้งหมด นอกจากนี้ยังได้เพิ่มชื่อพื้นเมืองอื่น ๆ ตามชื่อพรรณไม้แห่งประเทศไทย เต็ม สมิตินันทน์ ฉบับแก้ไขปรับปรุง พ.ศ. 2557 ซึ่งชื่อที่เป็นทางการ (ตัวหนา)<br>
+    ที่อาจไม่ตรงกับในหนังสือ แต่ได้ระบุไว้ในช่องชื่ออื่น อนึ่ง ข้อมูลพืชบางชนิดระบุให้ดูข้อมูลเพิ่มเติมที่ สกุล ซึ่งอาจยังไม่มีข้อมูลของพืชบางสกุลในฐานข้อมูล เนื่องจากข้อมูลยังไม่สมบูรณ์ครบถ้วน<br>
+    จำนวนชนิดครบถ้วนสมบูรณ์ตามในหนังสือสารานุกรมพืชฯ เมื่อวันที่ 1 กุมภาพันธ์ 2561</p>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>รหัส</th>
+            <th>รูป</th>
+            <th>ชื่อไทย</th>
+            <th>ชื่ออังกฤษ</th>
+            <th>วงศ์</th>
+            <th>รายละเอียด</th>
+            <th>สร้างเมื่อ</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="m:${plants}">
+            <td th:text="${m.id}"></td>
+            <td> <img th:src="${m.imageFileName}" alt="Uploaded Image" width="250"></td><!-- แก้ whidth เป็น width -->
+            <td th:text="${m.thName}"></td>
+            <td th:text="${m.engName}"></td>
+            <td th:text="${m.family}"></td>
+            <td th:text="${m.description}"></td>
+            <td th:text="${m.creageAt}"></td> <!-- แก้ creageAt เป็น createAt -->
+            <td><a th:href="@{/editplant/{id}(id=${m.id})}">แก้ไข</a></td>
+            <td><a th:href="@{/deleteplant/{id}(id=${m.id})}">ลบ</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
